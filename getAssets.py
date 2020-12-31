@@ -7,6 +7,8 @@ api = tradeapi.REST(ALPACA_API_KEY, ALPACA_API_SECRET, base_url=ALPACA_BASE_URL)
 
 assets = api.list_assets()
 
+
+
 for asset in assets:
     try:
         if asset and asset.status == 'active':

@@ -1,0 +1,2 @@
+sqlalchemy
+alpaca-trade-api

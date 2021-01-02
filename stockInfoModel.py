@@ -27,4 +27,4 @@ class StockInfo(Base):
         self.dividendYield = dividendYield
         self.dateUpdated = dateUpdated
 
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)

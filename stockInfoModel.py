@@ -13,7 +13,7 @@ class StockInfo(Base):
     fiftyDayAverage = Column('fiftyDayAverage', Float, nullable=False)
     forwardPe = Column('forwardPe', Float, nullable=False)
     forwardEps = Column('forwardEps', Float, nullable=False)
-    dividendYield = Column('dividendYield', Float, nullable=False)
+    dividendYield = Column('dividendYield', Float)
     dateUpdated = Column('dateUpdated', DateTime, nullable=False)
 
     def __init__ (self, stockId, marketCap, volume, twoHundredDayAverage, fiftyDayAverage, forwardPe, forwardEps, dividendYield, dateUpdated):
@@ -27,4 +27,4 @@ class StockInfo(Base):
         self.dividendYield = dividendYield
         self.dateUpdated = dateUpdated
 
-#Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)

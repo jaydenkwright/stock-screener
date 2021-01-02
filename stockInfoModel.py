@@ -1,22 +1,22 @@
 from datetime import datetime
-from sqlalchemy import Boolean, Column, String, Integer, DateTime, Float
+from sqlalchemy import Boolean, Column, String, Integer, DateTime, Float, BigInteger
 from sqlalchemy.orm import sessionmaker
 from db import session, Base, engine
 
 class StockInfo(Base):
     __tablename__ = 'stockInfo'
     id = Column('id', Integer, primary_key=True, index=True)
-    stockId = Column('stockId', Integer, nullable=False)
-    marketCap = Column('marketCap', Integer, nullable=False)
-    volume = Column('volume', Integer, nullable=False)
-    twoHundredDayAverage = Column('twoHundredDayAverage', Float, nullable=False)
-    fiftyDayAverage = Column('fiftyDayAverage', Float, nullable=False)
-    forwardPe = Column('forwardPe', Float, nullable=False)
-    forwardEps = Column('forwardEps', Float, nullable=False)
+    stockId = Column('stockId', BigInteger, nullable=False)
+    marketCap = Column('marketCap', BigInteger)
+    volume = Column('volume', BigInteger)
+    twoHundredDayAverage = Column('twoHundredDayAverage', Float)
+    fiftyDayAverage = Column('fiftyDayAverage', Float)
+    forwardPe = Column('forwardPe', Float)
+    forwardEps = Column('forwardEps', Float)
     dividendYield = Column('dividendYield', Float)
-    dateUpdated = Column('dateUpdated', DateTime, nullable=False)
+    dateUpdated = Column('dateUpdated', DateTime, default=datetime.utcnow)
 
-    def __init__ (self, stockId, marketCap, volume, twoHundredDayAverage, fiftyDayAverage, forwardPe, forwardEps, dividendYield, dateUpdated):
+    def __init__ (self, stockId, marketCap, volume, twoHundredDayAverage, fiftyDayAverage, forwardPe, forwardEps, dividendYield):
         self.stockId = stockId
         self.marketCap = marketCap
         self.volume = volume
@@ -25,6 +25,5 @@ class StockInfo(Base):
         self.forwardPe = forwardPe
         self.forwardEps = forwardEps
         self.dividendYield = dividendYield
-        self.dateUpdated = dateUpdated
 
 Base.metadata.create_all(bind=engine)

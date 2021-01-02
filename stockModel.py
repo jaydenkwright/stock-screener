@@ -12,7 +12,7 @@ class Stock(Base):
     sector = Column('sector', String, nullable=False)
     industry = Column('industry', String, nullable=False)
     location = Column('location', String, nullable=False)
-    founded = Column('founded', Integer, nullable=False)
+    founded = Column('founded', String, nullable=False)
     date = Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, name, symbol, exchange, sector, industry, location, founded):
@@ -24,8 +24,5 @@ class Stock(Base):
         self.location = location
         self.founded = founded
 
-
-
-
-# Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)
 

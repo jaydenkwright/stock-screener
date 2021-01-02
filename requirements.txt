@@ -1,2 +1,4 @@
 sqlalchemy
 alpaca-trade-api
+yfinance
+bs4

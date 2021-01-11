@@ -1,8 +1,8 @@
 import alpaca_trade_api as tradeapi
-from config import ALPACA_API_KEY, ALPACA_API_SECRET, ALPACA_BASE_URL
-from stockModel import Stock
-from db import session
-from priceModel import Price
+from server.config import ALPACA_API_KEY, ALPACA_API_SECRET, ALPACA_BASE_URL
+from server.models.stockModel import Stock
+from server.db import session
+from server.models.priceModel import Price
 
 stockData = session.query(Stock).all()
 symbols = []

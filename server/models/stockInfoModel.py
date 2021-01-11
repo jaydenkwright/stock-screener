@@ -1,6 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Boolean, Column, String, Integer, DateTime, Float, BigInteger
 from sqlalchemy.orm import sessionmaker
+from server.db import session, Base, engine
 
 class StockInfo(Base):
     __tablename__ = 'stockInfo'

@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Boolean, Column, String, Integer, DateTime, Numeric
 from sqlalchemy.orm import sessionmaker
-from db import session, Base, engine
+from server.db import session, Base, engine
 
 class List(Base):
     __tablename__ = 'lists'

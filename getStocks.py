@@ -1,7 +1,7 @@
 import alpaca_trade_api as tradeapi
-from stockModel import Stock
-from db import session
-from config import ALPACA_API_KEY, ALPACA_API_SECRET, ALPACA_BASE_URL
+from server.models.stockModel import Stock
+from server.db import session
+from server.config import ALPACA_API_KEY, ALPACA_API_SECRET, ALPACA_BASE_URL
 import bs4 as bs
 import requests
 

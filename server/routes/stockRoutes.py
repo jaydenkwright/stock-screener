@@ -5,6 +5,25 @@ from server.db import session
 
 
 @app.get('/api/stocks/all')
-async def getAllStocks(request: Request):
+def getAllStocks():
     stocks = session.query(Stock).all()
     return stocks
+
+@app.get('/api/stock/{id}')
+def getStock(id: int):
+    try:
+        stock = session.query(Stock).get(id)
+        return stock
+    except Exception as error:
+        return error
+
+@app.get('/api/stock/symbol/{symbol}')
+def getStockBySymbol(symbol: str):
+    try:
+        symbol = symbol.upper()
+        stock = session.query(Stock).filter(Stock.symbol == symbol).first()
+        return stock
+    except Exception as error:
+        return error
+
+    

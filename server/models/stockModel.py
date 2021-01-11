@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Boolean, Column, String, Integer, DateTime
 from sqlalchemy.orm import sessionmaker
-from db import session, Base, engine
+from server.db import session, Base, engine
 
 class Stock(Base):
     __tablename__ = 'stocks'
@@ -23,6 +23,7 @@ class Stock(Base):
         self.industry = industry
         self.location = location
         self.founded = founded
+
 
 #Base.metadata.create_all(bind=engine)
 

@@ -1,7 +1,7 @@
 import yfinance as yf
-from stockModel import Stock
-from stockInfoModel import StockInfo
-from db import session
+from server.models.stockModel import Stock
+from server.models.stockInfoModel import StockInfo
+from server.db import session
 from datetime import datetime
 
 stockData = session.query(Stock).all()

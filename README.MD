@@ -4,3 +4,4 @@
 2. Design tables
 3. Get stock data
 4. Get price data
+

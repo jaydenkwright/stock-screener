@@ -1,7 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Boolean, Column, String, Integer, DateTime, Float, BigInteger
 from sqlalchemy.orm import sessionmaker
-from db import session, Base, engine
 
 class StockInfo(Base):
     __tablename__ = 'stockInfo'
@@ -26,4 +25,4 @@ class StockInfo(Base):
         self.forwardEps = forwardEps
         self.dividendYield = dividendYield
 
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)

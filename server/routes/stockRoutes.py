@@ -26,4 +26,13 @@ def getStockBySymbol(symbol: str):
     except Exception as error:
         return error
 
+@app.get('/api/stocks/exchange/{exchange}')
+def getStocksByExchange(exchange: str):
+    try:
+        exchange = exchange.upper()
+        stocks = session.query(Stock).filter(Stock.exchange == exchange).all()
+        return stocks
+    except Exception as error:
+        print(error)
+
     

@@ -17,10 +17,13 @@ chunk = 200
 for i in range(0, len(symbols), chunk):
     symbol_chunk = symbols[i:i+chunk]
 
-    barsets = api.get_barset(symbol_chunk, 'day')
+    barsets = api.get_barset(symbol_chunk, '1D', limit=31)
     for symbol in barsets:
         for bar in barsets[symbol]:
-            price = Price(stockIds[symbol], bar.o, bar.h, bar.l, bar.c, bar.t.date())
-            session.add(price)
+            priceExist = session.query(Price).filter(Price.date == bar.t.date()).first()
+            if not priceExist:
+                price = Price(stockIds[symbol], bar.o, bar.h, bar.l, bar.c, bar.t.date())
+                session.add(price)
+                print(stockIds[symbol], bar.o, bar.h, bar.l, bar.c, bar.t.date())
 
 session.commit()

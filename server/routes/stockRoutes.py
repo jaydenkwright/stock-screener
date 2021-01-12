@@ -91,7 +91,6 @@ def updatePrices(id: int):
     for bar in barsets[symbol]:
         priceExist = session.query(Price).filter(Price.date == bar.t.date()).first()
         if not priceExist:
-            print(bar.t.date())
             price = Price(id, bar.o, bar.h, bar.l, bar.c, bar.t.date())
             session.add(price)
             session.commit()

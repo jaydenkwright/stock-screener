@@ -10,7 +10,7 @@ class Price(Base):
     open = Column('open', Numeric, nullable=False)
     high = Column('high', Numeric, nullable=False)
     low = Column('low', Numeric, nullable=False)
-    close = Column('high', Numeric, nullable=False)
+    close = Column('close', Numeric, nullable=False)
     date = Column('date', DateTime, nullable=False)
 
     def __init__(self, stockId, open, high, low, close, date):
@@ -21,4 +21,4 @@ class Price(Base):
         self.close = close
         self.date = date
     
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)

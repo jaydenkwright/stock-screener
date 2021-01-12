@@ -33,14 +33,14 @@ for i in range(0, len(symbols), chunk):
             info = session.query(StockInfo).filter(StockInfo.stockId == stockId)
 
             if info:
-                print('already in database')
-                info.update({'marketCap': marketCap, 'volume': volume, 'twoHundredDayAverage': twoHundredDayAverage, 'fiftyDayAverage': fiftyDayAverage, 'forwardPe': forwardPe, 'forwardEps': forwardEps, 'dividendYield': dividendYield}, synchronize_session="fetch")
+                info.update({'marketCap': marketCap, 'volume': volume, 'twoHundredDayAverage': twoHundredDayAverage, 'fiftyDayAverage': fiftyDayAverage, 'forwardPe': forwardPe, 'forwardEps': forwardEps, 'dividendYield': dividendYield, 'dateUpdated': datetime.utcnow()}, synchronize_session="fetch")
+                session.commit()
             else:
                 stockInfo = StockInfo(stockId, marketCap, volume, twoHundredDayAverage, fiftyDayAverage, forwardPe, forwardEps, dividendYield)
                 session.add(stockInfo)
         except Exception as error:
             print(error)
 
-session.commit()
+session.close()
             
 

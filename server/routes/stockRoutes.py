@@ -84,5 +84,23 @@ def getStocksByIndustry(industry: str):
     except Exception as error:
         print(error)
 
+def updatePrices(id: int):
+    api = tradeapi.REST(ALPACA_API_KEY, ALPACA_API_SECRET, base_url=ALPACA_BASE_URL)
+    symbol = session.query(Stock).get(id).symbol
+    barsets = api.get_barset(symbol, '1D', limit=31)
+    for bar in barsets[symbol]:
+        priceExist = session.query(Price).filter(Price.date == bar.t.date()).first()
+        if not priceExist:
+            print(bar.t.date())
+            price = Price(id, bar.o, bar.h, bar.l, bar.c, bar.t.date())
+            session.add(price)
+            session.commit()
+    session.close()
 
+
+@app.get('/api/prices/{id}')
+def getPrices(id: int, background_task: BackgroundTasks):
+    prices = session.query(Price).filter(Price.stockId == id).order_by(desc(Price.date)).limit(31).all()
+    background_task.add_task(updatePrices, id)
+    return prices
     

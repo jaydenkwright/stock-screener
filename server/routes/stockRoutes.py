@@ -10,28 +10,6 @@ import alpaca_trade_api as tradeapi
 from server.config import ALPACA_API_KEY, ALPACA_API_SECRET, ALPACA_BASE_URL
 from datetime import datetime
 
-@app.get('/api/stocks/all')
-def getAllStocks():
-    try:
-        result = []
-        stocks = session.query(Stock).all()
-        for stock in stocks:
-            item = {}
-            item['stock'] = stock
-            item['stockInfo'] = session.query(StockInfo).filter(StockInfo.stockId == stock.id).first()
-            result.append(item)
-        return result
-    except Exception as error:
-        print(error)
-
-@app.get('/api/stock/{id}')
-def getStock(id: int):
-    try:
-        stock = session.query(Stock).get(id)
-        return stock
-    except Exception as error:
-        return error
-
 def updateInfo(id: int):
     symbol = session.query(Stock).get(id).symbol
     stockInfo = yf.Ticker(symbol).info
@@ -52,14 +30,45 @@ def updateInfo(id: int):
     except Exception as error:
         print(error)
 
-@app.get('/api/stock/info/{id}')
-def getStockInfo(id: int, background_task: BackgroundTasks):
+def updatePrices(id: int):
+    api = tradeapi.REST(ALPACA_API_KEY, ALPACA_API_SECRET, base_url=ALPACA_BASE_URL)
+    symbol = session.query(Stock).get(id).symbol
+    barsets = api.get_barset(symbol, '1D', limit=31)
+    for bar in barsets[symbol]:
+        priceExist = session.query(Price).filter(Price.date == bar.t.date()).first()
+        if not priceExist:
+            price = Price(id, bar.o, bar.h, bar.l, bar.c, bar.t.date())
+            session.add(price)
+            session.commit()
+    session.close()
+
+@app.get('/api/stocks/all')
+def getAllStocks():
     try:
-        stockInfo = session.query(StockInfo).filter(StockInfo.stockId == id).first()
-        background_task.add_task(updateInfo, id)
-        return stockInfo
+        result = []
+        stocks = session.query(Stock).all()
+        for stock in stocks:
+            item = {}
+            item['stock'] = stock
+            item['stockInfo'] = session.query(StockInfo).filter(StockInfo.stockId == stock.id).first()
+            result.append(item)
+        return result
     except Exception as error:
         print(error)
+
+@app.get('/api/stock/{id}')
+def getStock(id: int, background_task: BackgroundTasks):
+    try:
+        stock = session.query(Stock).get(id)
+        item = {}
+        item['stock'] = stock
+        item['stockInfo'] = session.query(StockInfo).filter(StockInfo.stockId == stock.id).first()
+        item['prices'] = session.query(Price).filter(Price.stockId == stock.id).order_by(desc(Price.date)).limit(31).all()
+        background_task.add_task(updateInfo, id)
+        background_task.add_task(updatePrices, id)
+        return item
+    except Exception as error:
+        return error
 
 @app.get('/api/stock/symbol/{symbol}')
 def getStockBySymbol(symbol: str):
@@ -92,18 +101,6 @@ def getStocksByIndustry(industry: str):
         return stocks
     except Exception as error:
         print(error)
-
-def updatePrices(id: int):
-    api = tradeapi.REST(ALPACA_API_KEY, ALPACA_API_SECRET, base_url=ALPACA_BASE_URL)
-    symbol = session.query(Stock).get(id).symbol
-    barsets = api.get_barset(symbol, '1D', limit=31)
-    for bar in barsets[symbol]:
-        priceExist = session.query(Price).filter(Price.date == bar.t.date()).first()
-        if not priceExist:
-            price = Price(id, bar.o, bar.h, bar.l, bar.c, bar.t.date())
-            session.add(price)
-            session.commit()
-    session.close()
 
 
 @app.get('/api/prices/{id}')

@@ -12,8 +12,17 @@ from datetime import datetime
 
 @app.get('/api/stocks/all')
 def getAllStocks():
-    stocks = session.query(Stock).all()
-    return stocks
+    try:
+        result = []
+        stocks = session.query(Stock).all()
+        for stock in stocks:
+            item = {}
+            item['stock'] = stock
+            item['stockInfo'] = session.query(StockInfo).filter(StockInfo.stockId == stock.id).first()
+            result.append(item)
+        return result
+    except Exception as error:
+        print(error)
 
 @app.get('/api/stock/{id}')
 def getStock(id: int):

@@ -20,7 +20,7 @@ for i in range(0, len(symbols), chunk):
     barsets = api.get_barset(symbol_chunk, '1D', limit=31)
     for symbol in barsets:
         for bar in barsets[symbol]:
-            priceExist = session.query(Price).filter(Price.date == bar.t.date()).first()
+            priceExist = session.query(Price).filter(Price.date == bar.t.date(), Price.stockId == id).first()
             if not priceExist:
                 price = Price(stockIds[symbol], bar.o, bar.h, bar.l, bar.c, bar.t.date())
                 session.add(price)

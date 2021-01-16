@@ -28,13 +28,16 @@ def updateInfo(id: int):
         print(error)
 
 def updatePrices(id: int):
-    api = tradeapi.REST(ALPACA_API_KEY, ALPACA_API_SECRET, base_url=ALPACA_BASE_URL)
-    symbol = session.query(Stock).get(id).symbol
-    barsets = api.get_barset(symbol, '1D', limit=31)
-    for bar in barsets[symbol]:
-        priceExist = session.query(Price).filter(Price.date == bar.t.date()).first()
-        if not priceExist:
-            price = Price(id, bar.o, bar.h, bar.l, bar.c, bar.t.date())
-            session.add(price)
-            session.commit()
-    session.close()
+    try:
+        api = tradeapi.REST(ALPACA_API_KEY, ALPACA_API_SECRET, base_url=ALPACA_BASE_URL)
+        symbol = session.query(Stock).get(id).symbol
+        barsets = api.get_barset(symbol, '1D', limit=31)
+        for bar in barsets[symbol]:
+            priceExist = session.query(Price).filter(Price.date == bar.t.date(), Price.stockId == id).first()
+            if not priceExist:
+                price = Price(id, bar.o, bar.h, bar.l, bar.c, bar.t.date())
+                session.add(price)
+                session.commit()
+        session.close()
+    except Exception as error:
+        print(error)

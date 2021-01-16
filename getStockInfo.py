@@ -38,6 +38,7 @@ for i in range(0, len(symbols), chunk):
             else:
                 stockInfo = StockInfo(stockId, marketCap, volume, twoHundredDayAverage, fiftyDayAverage, forwardPe, forwardEps, dividendYield)
                 session.add(stockInfo)
+                session.commit()
         except Exception as error:
             print(error)
 

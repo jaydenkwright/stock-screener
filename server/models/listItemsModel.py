@@ -2,8 +2,9 @@ from datetime import datetime
 from sqlalchemy import Boolean, Column, String, Integer, DateTime, Numeric
 from sqlalchemy.orm import sessionmaker
 from server.db import session, Base, engine
+from pydantic import BaseModel
 
-class List(Base):
+class ListItem(Base):
     __tablename__ = 'listItems'
     id = Column('id', Integer, primary_key=True, index=True)
     userId = Column('userId', Integer)
@@ -15,6 +16,11 @@ class List(Base):
         self.userId = userId
         self.listId = listId
         self.stockId = stockId
+
+class ListItemModel(BaseModel):
+    userId: int
+    listId: int
+    stockId: int
 
 
 Base.metadata.create_all(bind=engine)

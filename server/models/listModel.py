@@ -3,6 +3,7 @@ from sqlalchemy import Boolean, Column, String, Integer, DateTime, Numeric
 from sqlalchemy.orm import sessionmaker
 from server.db import session, Base, engine
 from pydantic import BaseModel
+from typing import Optional
 
 class List(Base):
     __tablename__ = 'lists'
@@ -20,7 +21,7 @@ class List(Base):
 class ListModel(BaseModel):
     userId: int
     title: str
-    description: str
+    description: Optional[str]
 
 
 Base.metadata.create_all(bind=engine)

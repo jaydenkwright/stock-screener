@@ -9,7 +9,6 @@ from sqlalchemy import func, desc
 import yfinance as yf
 import alpaca_trade_api as tradeapi
 from server.config import ALPACA_API_KEY, ALPACA_API_SECRET, ALPACA_BASE_URL
-from datetime import datetime
 
 @app.get('/api/stocks/all')
 def getAllStocks():

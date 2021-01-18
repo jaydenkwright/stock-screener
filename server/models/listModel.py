@@ -19,7 +19,7 @@ class List(Base):
         self.description = description
 
 class ListModel(BaseModel):
-    userId: int
+    userId: Optional[int]
     title: str
     description: Optional[str]
 

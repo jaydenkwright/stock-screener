@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Boolean, Column, String, Integer, DateTime
 from sqlalchemy.orm import sessionmaker
-from db import session, Base, engine
+from server.db import session, Base, engine
 from pydantic import BaseModel
 
 class User(Base):

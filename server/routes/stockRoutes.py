@@ -24,7 +24,7 @@ def getAllStocks():
                 result.append(item)
             return result
         else:
-            raise HTTPException(status_code=404, detail="No stocks were found!")
+            return HTTPException(status_code=404, detail="No stocks were found!")
     except Exception as error:
         raise HTTPException(status_code=500, detail="Something went wrong!")
 
@@ -41,7 +41,7 @@ def getStock(id: int, background_task: BackgroundTasks):
             background_task.add_task(updatePrices, id)
             return item
         else:
-            raise HTTPException(status_code=404, detail="Stock was not found!")
+            return HTTPException(status_code=404, detail="Stock was not found!")
     except Exception as error:
         raise HTTPException(status_code=500, detail="Something went wrong!")
 
@@ -58,7 +58,7 @@ def getStockBySymbol(symbol: str, background_task: BackgroundTasks):
             background_task.add_task(updatePrices, stock.id)
             return item
         else:
-            raise HTTPException(status_code=404, detail="Stock was not found!")
+            return HTTPException(status_code=404, detail="Stock was not found!")
     except Exception as error:
         raise HTTPException(status_code=500, detail="Something went wrong!")
 
@@ -75,7 +75,7 @@ def getStocksByExchange(exchange: str):
                 result.append(item)
             return result
         else:
-            raise HTTPException(status_code=404, detail="No stocks were found!")
+            return HTTPException(status_code=404, detail="No stocks were found!")
     except Exception as error:
         raise HTTPException(status_code=500, detail="Something went wrong!")
 
@@ -92,7 +92,7 @@ def getStocksBySector(sector: str):
                 result.append(item)
             return result
         else:
-            raise HTTPException(status_code=404, detail="No stocks were found!")
+            return HTTPException(status_code=404, detail="No stocks were found!")
     except Exception as error:
         raise HTTPException(status_code=500, detail="Something went wrong!")
     
@@ -109,6 +109,6 @@ def getStocksByIndustry(industry: str):
                 result.append(item)
             return result
         else:
-            raise HTTPException(status_code=404, detail="No stocks were found!")
+            return HTTPException(status_code=404, detail="No stocks were found!")
     except Exception as error:
         raise HTTPException(status_code=500, detail="Something went wrong!")

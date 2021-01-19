@@ -18,7 +18,6 @@ class ListItem(Base):
         self.stockId = stockId
 
 class ListItemModel(BaseModel):
-    userId: int
     listId: int
     stockId: int
 

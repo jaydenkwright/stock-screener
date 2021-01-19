@@ -11,7 +11,7 @@ def verify(request: Request):
     try:
         decodedToken = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
         currentUser = session.query(User).get(decodedToken['id'])
-        return decodedToken
+        return decodedToken['id']
     except Exception as error:
         print(error)
         raise HTTPException(status_code=401, detail="User token is invalid!")

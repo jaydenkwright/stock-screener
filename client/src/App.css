@@ -1,0 +1,141 @@
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass{
+  margin: 3em;
+  min-height: 80vh;
+  width: 70%;
+  background: linear-gradient(
+    to right bottom, 
+    rgba(255,255,255,0.7), 
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 2rem;
+  display: flex;
+  animation: fadeIn 1.5s ease;
+}
+
+.sidebar{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-evenly; */
+  text-align: center;
+  background: linear-gradient(
+    to right top, 
+    rgba(255,255,255,0.7), 
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 2rem 0em 0em 2em;
+  animation: fadeIn 2s ease;
+}
+
+.stockSymbol h1{
+  color: #426693;
+  font-size: 3em;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.stockSymbol h3{
+  color: #426693;
+  font-size: 1.5em;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.stockSymbol{
+  padding: 0rem 2rem;
+}
+
+
+.infoItem{
+  margin: 2em 0rem;
+  padding: 0rem 2rem;
+}
+
+.infoItem h2{
+  color: #426693;
+  font-size: 1.5em;
+  opacity: 0.7;
+}
+
+.content{
+  flex: 2;
+  animation: fadeIn 2s ease;
+}
+
+.infoCard{
+  display: flex;
+  background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0.8));
+  border-radius: 1rem;
+  margin: 3rem 5rem 0em 5em;
+  padding: 1em;
+  align-items: center;
+}
+
+.infoColumn{
+  flex: 1;
+  padding: .5em;
+}
+
+.infoPrice{
+  margin: .5em 0em;
+  font-size: 1em;
+  color: #426693;
+  opacity: .8;
+}
+
+.infoTitle{
+  font-size: 1em;
+  opacity: 1;
+}
+
+.priceCards{
+  display: flex;
+  flex-direction: column;
+  margin: 0em 5rem 3em 5em;
+}
+
+.card{
+  display: flex;
+  background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0.8));
+  border-radius: 1rem;
+  margin: .2rem 0rem;
+  min-height: 3rem;
+  box-shadow: 6px 6px 20px rgba(122,122,122,0.2);
+  justify-content: space-between;
+  padding: 1em;
+  align-items: center;
+}
+
+.columnPrice{
+  margin: .2em 0em;
+  font-size: 1em;
+  color: #426693;
+  opacity: .8;
+}
+
+.columnTitle{
+  font-size: 1em;
+  opacity: 1;
+}
+
+.date h5{
+  color: #426693;
+  font-size: 1em;
+  opacity: .8;
+}
+
+@keyframes fadeIn {
+  0%{
+      opacity: 0;
+  }100%{
+      opacity: 1;
+  }
+}
